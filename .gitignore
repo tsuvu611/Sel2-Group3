@@ -1,2 +1,8 @@
 Sel2_Team3.iml
 .idea/
+/target/
+/test-output/
+/.settings
+/bin/
+/.classpath
+/.idea/
