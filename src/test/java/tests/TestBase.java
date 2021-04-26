@@ -10,7 +10,6 @@ import page.HomePage;
 
 public class TestBase {
     protected static final Logger Logger = new Logger(TestBase.class.getName());
-
     protected WebDriver getDriver() {
         return DriverManager.getDriver();
     }

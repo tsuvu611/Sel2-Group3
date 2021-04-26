@@ -5,7 +5,7 @@ import driver.DriverManager;
 import element.Label;
 
 public class HomePage {
-    private final Label lblUsername = new Label("xpath will be updated later");
+    private final Label lblUsername = new Label("//div[@id-'test']");
     private final Label lblRepoName = new Label("xpath will be updated later");
 
     /**

@@ -42,7 +42,7 @@ public class Driver extends BaseDriver {
 
                 case "Firefox":
                     System.setProperty("webdriver.gecko.driver",
-                            System.getProperty("user.dir") + "\\Core\\core.drivers\\geckodriver.exe");
+                            System.getProperty("user.dir") + "\\src\\main\\java\\driver\\geckodriver.exe");
                     if (!parallel) {
                         _driver = new FirefoxDriver();
                     } else if (parallel) {
