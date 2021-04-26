@@ -19,9 +19,8 @@ public class HomePage {
         return this;
     }
 
-    public HomePage waitForLoading() {
+    public void waitForLoading() {
         lblUsername.waitForDisplayed();
-        return this;
     }
 
 }
