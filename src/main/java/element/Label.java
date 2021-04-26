@@ -1,24 +1,26 @@
 package element;
 
+import driver.DriverManager;
 import org.openqa.selenium.By;
 
 
-public class Label extends BaseElement{
+public class Label extends BaseElement {
     /**
-     * @author tuan.vu
-     *  Instantiates a new element
      * @param locator the By locator
+     * @author tuan.vu
+     * Instantiates a new element
      */
     public Label(By locator) {
         super(locator);
     }
 
     /**
+     * @param xpath the By.xpath
      * @author tuan.vu
      * Instantiates a new element
-     * @param xpath the By.xpath
      */
     public Label(String xpath) {
         super(xpath);
     }
+
 }

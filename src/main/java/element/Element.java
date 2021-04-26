@@ -6,9 +6,7 @@ import org.openqa.selenium.By;
 public class Element extends BaseElement{
     /**
      * @author tuan.vu
-     *
-     *         Instantiates a new element.
-     *
+     *  Instantiates a new element
      * @param locator the By locator
      */
     public Element(By locator) {
@@ -17,9 +15,7 @@ public class Element extends BaseElement{
 
     /**
      * @author tuan.vu
-     *
-     *         Instantiates a new element.
-     *
+     * Instantiates a new element
      * @param xpath the By.xpath
      */
     public Element(String xpath) {
