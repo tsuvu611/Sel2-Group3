@@ -10,8 +10,9 @@ public class HomePage {
 
     /**
      * Open the TA Dashboard
-     * @author tuan.vu
+     *
      * @return the home page
+     * @author tuan.vu
      */
     public HomePage open() {
         DriverManager.getDriver().navigate().to(Constant.DASHBOARD_URL);
