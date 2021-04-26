@@ -7,10 +7,11 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import page.HomePage;
+import page.LoginPage;
 
 public class TestBase {
     protected static final Logger Logger = new Logger(TestBase.class.getName());
-    protected WebDriver getDriver() {
+    protected WebDriver driver() {
         return DriverManager.getDriver();
     }
 
@@ -18,8 +19,8 @@ public class TestBase {
     public void beforeMethod() {
         System.out.println("Run beforeMethod");
         DriverManager.createDriver(DriverType.CHROME);
-        HomePage homePage = new HomePage();
-        homePage.open();
+        LoginPage loginPage = new LoginPage();
+        loginPage.open();
     }
 
     @AfterMethod
