@@ -3,6 +3,7 @@ package driver;
 
 import common.Logger;
 import enums.DriverType;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -72,5 +73,9 @@ public class Driver extends BaseDriver {
         Logger.info(String.format("Scroll the driver %s till end", DriverManager.getThreadId()));
         String js = String.format("window.scrollTo(0, document.body.scrollHeight)");
         jsExecutor().executeScript(js);
+    }
+
+    public String getPopupText(){
+        return _driver.switchTo().alert().getText();
     }
 }

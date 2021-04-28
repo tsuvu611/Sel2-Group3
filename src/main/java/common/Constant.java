@@ -18,4 +18,10 @@ public class Constant {
 	public static final Logger createLogger(String className) {
 		return Logger.getLogger(className);
 	}
+
+	//Account
+	public static final String REPOSITORY = "SampleRepository";
+	public static final String USERNAME = "administrator";
+	public static final String PASSWORD = "";
+	
 }

@@ -2,6 +2,7 @@ package page;
 
 import common.Constant;
 import driver.DriverManager;
+import org.openqa.selenium.Alert;
 
 public abstract class BasePage {
     /**
@@ -14,5 +15,10 @@ public abstract class BasePage {
         DriverManager.getDriver().navigate().to(Constant.DASHBOARD_URL);
         DriverManager.getDriver().manage().window().maximize();
         return new LoginPage();
+    }
+
+    public String getPopupText(){
+        Alert alert = DriverManager.getDriver().switchTo().alert();
+        return   alert.getText();
     }
 }

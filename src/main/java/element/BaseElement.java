@@ -3,14 +3,13 @@ package element;
 import common.Logger;
 import driver.DriverManager;
 import enums.TimeOut;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
+
 
 public abstract class BaseElement {
     protected static final Logger Logger = new Logger(BaseElement.class.getName());
@@ -103,4 +102,10 @@ public abstract class BaseElement {
         Logger.info(String.format("Clicking on element located at %s",getLocator()));
         getElement().click();
     }
+
+    public String getText(){
+        return getElement().getText();
+    }
+
+
 }
