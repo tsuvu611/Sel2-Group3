@@ -75,7 +75,5 @@ public class Driver extends BaseDriver {
         jsExecutor().executeScript(js);
     }
 
-    public String getPopupText(){
-        return _driver.switchTo().alert().getText();
-    }
+
 }

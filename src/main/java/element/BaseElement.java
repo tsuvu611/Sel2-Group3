@@ -103,9 +103,7 @@ public abstract class BaseElement {
         getElement().click();
     }
 
-    public String getText(){
-        return getElement().getText();
-    }
+
 
 
 }
