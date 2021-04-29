@@ -2,6 +2,12 @@ package page;
 
 import common.Constant;
 import driver.DriverManager;
+import enums.TimeOut;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.concurrent.TimeUnit;
 
 public abstract class BasePage {
     /**
@@ -15,4 +21,11 @@ public abstract class BasePage {
         DriverManager.getDriver().manage().window().maximize();
         return new LoginPage();
     }
+
+    public String getPopupText(){
+        new WebDriverWait(DriverManager.getDriver(), TimeOut.TIMEOUT.getTimeout()).until(ExpectedConditions.alertIsPresent());
+        Alert alert = DriverManager.getDriver().switchTo().alert();
+        return   alert.getText();
+    }
+
 }

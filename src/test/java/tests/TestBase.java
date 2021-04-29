@@ -26,6 +26,6 @@ public class TestBase {
     @AfterMethod
     public void afterMethod() {
         System.out.println("Run after Method");
-        getDriver().quit();
+        driver().quit();
     }
 }

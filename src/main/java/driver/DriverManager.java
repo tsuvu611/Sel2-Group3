@@ -46,7 +46,7 @@ public class DriverManager {
      */
     protected static void addDriver(WebDriver driver) {
         try {
-            Logger.info("DriverManagement are adding driver on thread " + getThreadId());
+            Logger.info("Adding driver on thread " + getThreadId());
             map.put(getThreadId(), driver);
         } catch (Exception e) {
             Logger.error(e.getMessage());
