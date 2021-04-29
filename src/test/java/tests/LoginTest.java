@@ -30,12 +30,13 @@ public class LoginTest extends TestBase {
     public void DA_LOGIN_TC002() {
         User user = new User();
         String expectedMsg = "Username or password is invalid";
+        String actualMsg;
 
         // 1. Navigate to Dashboard login page
         // 2. Enter valid username and password
         // 3. Click on "Login" button
         loginPage = loginPage.loginWithInvalidAccount(Constant.REPOSITORY, user.getRandomUser());        // 4. Verify that Dashboard Error message "Username or password is invalid" appears
-        String actualMsg = loginPage.getPopupText();
+        actualMsg = loginPage.getPopupText();
         Assert.assertEquals(actualMsg, expectedMsg, "Title is not displayed as expected");
     }
 }
