@@ -1,35 +1,30 @@
 package element;
 
-import driver.Driver;
 import org.openqa.selenium.By;
 
 
-public class TextBox extends BaseElement{
+public class TextBox extends BaseElement {
     /**
-     * @author tuan.vu
-     *
-     *         Instantiates a new element.
-     *
      * @param locator the By locator
+     * @author tuan.vu
+     * Init new TextBox
      */
     public TextBox(By locator) {
         super(locator);
     }
 
     /**
-     * @author tuan.vu
-     *
-     *         Instantiates a new element.
-     *
      * @param xpath the By.xpath
+     * @author tuan.vu
+     * Init new TextBox
      */
     public TextBox(String xpath) {
         super(xpath);
     }
 
     public void enter(String text) {
-        _element.clear();
-        _element.sendKeys(text);
+        Logger.info(String.format("Entering on text box located at %s",getLocator()));
+        getElement().sendKeys(text);
     }
 
 }
