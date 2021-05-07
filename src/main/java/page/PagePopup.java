@@ -34,6 +34,11 @@ public class PagePopup {
         return this;
     }
 
+    public PagePopup clickDisplayAfter(){
+        cmbDisplayAfter.click();
+        return this;
+    }
+
     public PagePopup clickCmbParentPage(){
         cmbParentPage.click();
         return this;

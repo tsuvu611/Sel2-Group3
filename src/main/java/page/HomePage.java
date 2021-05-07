@@ -4,8 +4,6 @@ import element.Element;
 import element.Label;
 
 public class HomePage extends BasePage {
-    private final Label lblUsername = new Label("//div[@id-'test']");
-    private final Label lblRepoName = new Label("xpath will be updated later");
     private final Label lblTabName = new Label("//a[@class='active']");
     private final Element elmGlobalSetting = new Element("//li[@class='mn-setting']");
 
@@ -24,8 +22,13 @@ public class HomePage extends BasePage {
     private final Element elmChildPageName(String parentPageName, String childPageName) {
         String tmp = String.format("//a[contains(text(),'%s')]/following-sibling::ul", parentPageName);
         return new Element(String.format(tmp + "//a[contains(text(),'%s')]", childPageName));
+    }
 
+    private final Element elmChild2PageName(String parentPageName, String childPageName1,String childPageName2) {
+        String tmp = String.format("//a[contains(text(),'%s')]/following-sibling::ul", parentPageName);
+        String tmp2 = String.format(tmp+"//a[contains(text(),'%s')]", childPageName1);
 
+        return new Element(String.format(tmp2 + "//a[contains(text(),'%s')]", childPageName2));
     }
 
     public String getTabName() {
@@ -34,11 +37,11 @@ public class HomePage extends BasePage {
 
     public HomePage moveToGlobalSetting() {
         elmGlobalSetting.waitForDisplayed();
-        elmGlobalSetting.click();
+        elmGlobalSetting.moveMouse();
         return this;
     }
 
-    public HomePage clickPage(String pageName){
+    public HomePage clickPage(String pageName) {
         elmPageName(pageName).waitForDisplayed();
         elmPageName(pageName).click();
         return this;
@@ -46,24 +49,39 @@ public class HomePage extends BasePage {
 
     public PagePopup clickAddNewPage() {
         Logger.info("Clicking Add Page Item");
-        elmItemSetting("Add Page").click();
+        try {
+            elmItemSetting("Add Page").click();
+        } catch (Exception e) {
+            moveToGlobalSetting();
+            elmItemSetting("Add Page").click();
+        }
         return new PagePopup();
     }
 
-    public Popup clickDeletePage() {
+    public PopupAlert clickDeletePage() {
         Logger.info("Clicking Detele Page Item");
-        elmItemSetting("Delete").click();
-        return new Popup();
+        try {
+            elmItemSetting("Delete").click();
+        } catch (Exception e) {
+            moveToGlobalSetting();
+            elmItemSetting("Delete").click();
+        }
+        return new PopupAlert();
     }
 
     public PagePopup clickEditPage() {
         Logger.info("Clicking Edit Page Item");
-        elmItemSetting("Edit").click();
+        try {
+            elmItemSetting("Edit").click();
+        } catch (Exception e) {
+            moveToGlobalSetting();
+            elmItemSetting("Edit").click();
+        }
         return new PagePopup();
     }
 
     public boolean verifyAddNewPageIsDisplayed() {
-        return elmGlobalSetting.isDisplayed();
+        return elmItemSetting("Add Page").isDisplayed();
     }
 
     public boolean verifyNewPageDisplaysBesideOverview(String pageName) {
@@ -82,40 +100,50 @@ public class HomePage extends BasePage {
     }
 
     public HomePage moveMouseToPage(String pageName) {
-        elmPageName(pageName).waitForDisplayed();
+        elmPageName(pageName).moveMouse();
+        return this;
+    }
+
+    public HomePage moveMouseToChildPage(String pageName) {
         elmPageName(pageName).moveMouse();
         return this;
     }
 
     public boolean verifyChildPageIsDisplayed(String parentPageName, String childPageName) {
-       try {
-           return elmChildPageName(parentPageName,childPageName).isDisplayed();
-       }
-       catch (Exception e){
-           return false;
-       }
+        if (!elmChildPageName(parentPageName, childPageName).isDisplayed()) {
+            elmPageName(parentPageName).moveMouse();
+        }
+        return elmChildPageName(parentPageName, childPageName).isDisplayed();
     }
 
-    public boolean verifyPageIsVisible(String pageName){
+    public boolean verifyPageIsVisible(String pageName) {
         try {
+            elmPageName(pageName).waitForDisplayed();
             return elmPageName(pageName).isDisplayed();
+        } catch (Exception e) {
+            return false;
         }
-        catch (Exception e){
+
+    }
+
+    public boolean verifyDeleteDisplay() {
+        try {
+            return elmItemSetting("Delete").isDisplayed();
+        } catch (Exception e) {
             return false;
         }
     }
 
-    public HomePage clickChildPage(String parentPageName,String childPageName){
-        elmChildPageName(parentPageName, childPageName).click();
+    public HomePage clickChildPage(String parentPageName, String childPageName) {
+        try {
+            elmChildPageName(parentPageName, childPageName).click();
+        } catch (Exception e) {
+            elmPageName(parentPageName).moveMouse();
+            elmChildPageName(parentPageName, childPageName).click();
+        }
+
         return this;
     }
-
-    public boolean verifyChildPageAddSucess(String parentPage,String childPageName){
-        moveMouseToPage(parentPage);
-        return elmChildPageName(parentPage,childPageName).isDisplayed();
-    }
-
-
 
 
 }

@@ -20,6 +20,7 @@ public class TestBase {
         System.out.println("Run beforeMethod");
         DriverManager.createDriver(DriverType.CHROME);
         LoginPage loginPage = new LoginPage();
+        Logger.info("Step 1. Navigate to Dashboard login page");
         loginPage.open();
     }
 

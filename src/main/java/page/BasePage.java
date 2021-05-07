@@ -30,8 +30,14 @@ public abstract class BasePage {
 
     public LoginPage logout(){
         lblUsername.waitForDisplayed();
-        lblUsername.moveMouse();
-        elmAcountInfor("Logout").click();
+        try {
+            lblUsername.moveMouse();
+            elmAcountInfor("Logout").click();
+        }
+        catch (Exception e){
+            lblUsername.moveMouse();
+            elmAcountInfor("Logout").click();
+        }
         return  new LoginPage();
     }
 

@@ -61,4 +61,5 @@ public class ComboBox extends BaseElement {
     public void selectByText(String text) {
         selectByText(TimeOut.SHORT_TIMEOUT.getTimeout(), text);
     }
+
 }
