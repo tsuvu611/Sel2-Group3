@@ -21,6 +21,7 @@ public class Constant {
 
 	//Account
 	public static final String REPOSITORY = "SampleRepository";
+	public static final String NEW_REPOSITORY = "TestRepository";
 	public static final String USERNAME = "administrator";
 	public static final String PASSWORD = "";
 	

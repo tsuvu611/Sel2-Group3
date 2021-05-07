@@ -1,5 +1,6 @@
 package page;
 
+import data.Repository;
 import data.User;
 import element.Button;
 import element.ComboBox;
@@ -12,16 +13,16 @@ public class LoginPage extends GeneralPage {
     private final TextBox txtPassword = new TextBox("//input[@id='password']");
     private final Button btnLogin = new Button("//div[@class='btn-login']");
 
-    public HomePage login(String repository, User user) {
-        cbbRepository.selectByText(repository);
+    public HomePage login(Repository repository, User user) {
+        cbbRepository.selectByText(repository.getRepository());
         txtUserName.enter(user.getUsername());
         txtPassword.enter(user.getPassword());
         btnLogin.click();
         return new HomePage();
     }
 
-    public LoginPage loginWithInvalidAccount(String repository, User user){
-        cbbRepository.selectByText(repository);
+    public LoginPage loginWithInvalidAccount(Repository repository, User user){
+        cbbRepository.selectByText(repository.getRepository());
         txtUserName.enter(user.getUsername());
         txtPassword.enter(user.getPassword());
         btnLogin.click();
