@@ -1,9 +1,14 @@
 package page;
 
+import driver.DriverManager;
+import element.Button;
 import element.Element;
 import element.Label;
+import enums.TimeOut;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class HomePage extends BasePage {
+public class HomePage extends BasePage{
+    private final Label lblUsername = new Label("//a[@href='#Welcome']");
     private final Label lblTabName = new Label("//a[@class='active']");
     private final Element elmGlobalSetting = new Element("//li[@class='mn-setting']");
 
@@ -30,6 +35,7 @@ public class HomePage extends BasePage {
 
         return new Element(String.format(tmp2 + "//a[contains(text(),'%s')]", childPageName2));
     }
+    private final Button btnLogout = new Button("//a[@href='logout.do']");
 
     public String getTabName() {
         return this.lblTabName.getText();
@@ -123,7 +129,6 @@ public class HomePage extends BasePage {
         } catch (Exception e) {
             return false;
         }
-
     }
 
     public boolean verifyDeleteDisplay() {
@@ -141,9 +146,14 @@ public class HomePage extends BasePage {
             elmPageName(parentPageName).moveMouse();
             elmChildPageName(parentPageName, childPageName).click();
         }
-
         return this;
     }
 
 
+    public LoginPage logout() {
+        lblUsername.click();
+        btnLogout.click();
+        new WebDriverWait(DriverManager.getDriver(), TimeOut.TIMEOUT.getTimeout());
+        return new LoginPage();
+    }
 }
