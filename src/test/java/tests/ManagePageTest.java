@@ -2,6 +2,7 @@ package tests;
 
 import common.Constant;
 import common.Utility;
+import data.Repository;
 import data.User;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -15,13 +16,14 @@ public class ManagePageTest extends TestBase {
     private HomePage homePage = new HomePage();
     private PagePopup pagePopup = new PagePopup();
     private PopupAlert popupAlert = new PopupAlert();
+    User user = new User();
+    Repository repo = new Repository();
 
-    //    @Test(description = "Verify that user is unable open more than 1 \"New Page\" dialog")
+    @Test(description = "Verify that user is unable open more than 1 \"New Page\" dialog")
     public void DA_MP_TC011() {
-        User user = new User();
         Logger.info("DA_MP_TC011 - Verify that user is unable open more than 1 \"New Page\" dialog");
         Logger.info("Step 2. Login with valid account");
-        loginPage.login(Constant.REPOSITORY, user);
+        loginPage.login(repo, user);
 
         Logger.info("Step 3. Go to Global Setting -> Add page");
         homePage.moveToGlobalSetting();
@@ -39,15 +41,15 @@ public class ManagePageTest extends TestBase {
 
     }
 
-    //    @Test(description = "Verify that user is able to add additional pages besides \"Overview\" page successfully")
+    @Test(description = "Verify that user is able to add additional pages besides \"Overview\" page successfully")
     public void DA_MP_TC012() {
-        User user = new User();
+
         String newPageName = Utility.randomString(5);
         boolean isRightPageName;
         Logger.info("DA_MP_TC012 - Verify that user is able to add additional pages besides \"Overview\" page successfully");
 
         Logger.info("Step 2. Login with valid account");
-        loginPage.login(Constant.REPOSITORY, user);
+        loginPage.login(repo, user);
 
         Logger.info("Step 3. Go to Global Setting -> Add page");
         homePage.moveToGlobalSetting();
@@ -70,16 +72,16 @@ public class ManagePageTest extends TestBase {
         popupAlert.clickOKAlert();
     }
 
-    //    @Test(description = "Verify that the newly added main parent page is positioned at the location specified as set with \"Displayed After\" field of \"New Page\" form on the main page bar/\"Parent Page\" dropped down menu")
+    @Test(description = "Verify that the newly added main parent page is positioned at the location specified as set with \"Displayed After\" field of \"New Page\" form on the main page bar/\"Parent Page\" dropped down menu")
     public void DA_MP_TC013() {
-        User user = new User();
+
         String newPageName1 = Utility.randomString(5);
         String newPageName2 = Utility.randomString(5);
         boolean isRightPosition;
         Logger.info("Verify that the newly added main parent page is positioned at the location specified as set with \"Displayed After\" field of \"New Page\" form on the main page bar/\"Parent Page\" dropped down menu");
 
         Logger.info("Step 2. Log in specific repository with valid account");
-        loginPage.login(Constant.REPOSITORY, user);
+        loginPage.login(repo, user);
 
         Logger.info("Step 3. Go to Global Setting -> Add page");
         homePage.moveToGlobalSetting();
@@ -122,16 +124,16 @@ public class ManagePageTest extends TestBase {
         popupAlert.clickOKAlert();
     }
 
-    //    @Test(description = "Verify that \"Public\" pages can be visible and accessed by all users of working repository")
+    @Test(description = "Verify that \"Public\" pages can be visible and accessed by all users of working repository")
     public void DA_MP_TC014() {
-        User user = new User();
+
         User user2 = new User(Constant.USERNAME2, Constant.PASSWORD);
         String newPageName = Utility.randomString(5);
         boolean isNewPageDisplay;
         Logger.info("DA_MP_TC014 - Verify that the newly added main parent page is positioned at the location specified as set with \"Displayed After\" field of \"New Page\" form on the main page bar/\"Parent Page\" dropped down menu");
 
         Logger.info("Step 2. Log in specific repository with valid account");
-        loginPage.login(Constant.REPOSITORY, user);
+        loginPage.login(repo, user);
 
         Logger.info("Step 3. Go to Global Setting -> Add page");
         homePage.moveToGlobalSetting();
@@ -150,7 +152,7 @@ public class ManagePageTest extends TestBase {
         homePage.logout();
 
         Logger.info("Step 8. Log in with another valid account");
-        loginPage.login(Constant.REPOSITORY, user2);
+        loginPage.login(repo, user2);
 
         Logger.info("VP: Check newly added page is visibled");
         isNewPageDisplay = homePage.verifyNewPageDisplaysBesideOverview(newPageName);
@@ -159,16 +161,16 @@ public class ManagePageTest extends TestBase {
         Logger.info("Post-Condition");
         Logger.info("Loggin old account and delete new page");
         homePage.logout();
-        loginPage.login(Constant.REPOSITORY, user);
+        loginPage.login(repo, user);
         homePage.clickPage(newPageName);
         homePage.moveToGlobalSetting();
         homePage.clickDeletePage();
         popupAlert.clickOKAlert();
     }
 
-    //    @Test(description = "Verify that non \"Public\" pages can only be accessed and visible to their creators with condition that all parent pages above it are \"Public\"")
+    @Test(description = "Verify that non \"Public\" pages can only be accessed and visible to their creators with condition that all parent pages above it are \"Public\"")
     public void DA_MP_TC015() {
-        User user = new User();
+
         User user2 = new User(Constant.USERNAME2, Constant.PASSWORD);
         String newPageName1 = Utility.randomString(5);
         String newPageName2 = Utility.randomString(5);
@@ -176,7 +178,7 @@ public class ManagePageTest extends TestBase {
 
         Logger.info("DA_MP_TC015 - Verify that non \"Public\" pages can only be accessed and visible to their creators with condition that all parent pages above it are \"Public\"");
         Logger.info("Step 2. Log in specific repository with valid account");
-        loginPage.login(Constant.REPOSITORY, user);
+        loginPage.login(repo, user);
 
         Logger.info("Step 3. Go to Global Setting -> Add page");
         homePage.moveToGlobalSetting();
@@ -211,7 +213,7 @@ public class ManagePageTest extends TestBase {
         homePage.logout();
 
         Logger.info("Step 12. Log in with another valid account");
-        loginPage.login(Constant.REPOSITORY, user2);
+        loginPage.login(repo, user2);
 
         Logger.info("VP: Check children is invisibled");
         homePage.moveMouseToPage(newPageName1);
@@ -221,7 +223,7 @@ public class ManagePageTest extends TestBase {
         Logger.info("Post-Condition");
         Logger.info("Log in  as creator page account and delete newly added page and its parent page");
         homePage.logout();
-        loginPage.login(Constant.REPOSITORY, user);
+        loginPage.login(repo, user);
         homePage.moveMouseToPage(newPageName1);
         homePage.clickChildPage(newPageName1, newPageName2);
         homePage.moveToGlobalSetting();
@@ -233,9 +235,8 @@ public class ManagePageTest extends TestBase {
         popupAlert.clickOKAlert();
     }
 
-    //    @Test(description = "Verify that user is able to edit the \"Public\" setting of any page successfully")
+    @Test(description = "Verify that user is able to edit the \"Public\" setting of any page successfully")
     public void DA_MP_TC016() {
-        User user = new User();
         User user2 = new User(Constant.USERNAME2, Constant.PASSWORD);
         String newPageName1 = Utility.randomString(5);
         String newPageName2 = Utility.randomString(5);
@@ -243,7 +244,7 @@ public class ManagePageTest extends TestBase {
 
         Logger.info("DA_MP_TC016 - Verify that user is able to edit the \"Public\" setting of any page successfully");
         Logger.info("Step 2. Log in specific repository with valid account");
-        loginPage.login(Constant.REPOSITORY, user);
+        loginPage.login(repo, user);
 
         Logger.info("Step 3. Go to Global Setting -> Add page");
         homePage.moveToGlobalSetting();
@@ -306,7 +307,7 @@ public class ManagePageTest extends TestBase {
         homePage.logout();
 
         Logger.info("Step 21. Log in with another valid account");
-        loginPage.login(Constant.REPOSITORY, user2);
+        loginPage.login(repo, user2);
 
         Logger.info("VP: Check " + newPageName1 + " Page is visible and can be accessed");
         isPageVisibile = homePage.verifyPageIsVisible(newPageName1);
@@ -319,7 +320,7 @@ public class ManagePageTest extends TestBase {
         Logger.info("Post-Condition");
         Logger.info("Log in  as creator page account and delete newly added page");
         homePage.logout();
-        loginPage.login(Constant.REPOSITORY, user);
+        loginPage.login(repo, user);
         homePage.clickPage(newPageName2);
         homePage.moveToGlobalSetting();
         homePage.clickDeletePage();
@@ -330,9 +331,9 @@ public class ManagePageTest extends TestBase {
         popupAlert.clickOKAlert();
     }
 
-    //    @Test(description = "Verify that user can remove any main parent page except \"Overview\" page successfully and the order of pages stays persistent as long as there is not children ")
+    @Test(description = "Verify that user can remove any main parent page except \"Overview\" page successfully and the order of pages stays persistent as long as there is not children ")
     public void DA_MP_TC017() {
-        User user = new User();
+
         String newPageNameParent = Utility.randomString(5);
         String newPageNameChild = Utility.randomString(5);
         String confirmDeleteMessage = "Are you sure you want to remove this page?";
@@ -341,7 +342,7 @@ public class ManagePageTest extends TestBase {
 
         Logger.info("DA_MP_TC17 - Verify that user can remove any main parent page except \"Overview\" page successfully and the order of pages stays persistent as long as there is not children ");
         Logger.info("Step 2. Log in specific repository with valid account");
-        loginPage.login(Constant.REPOSITORY, user);
+        loginPage.login(repo, user);
 
         Logger.info("Step 3. Add a new parent page");
         homePage.moveToGlobalSetting();
@@ -429,9 +430,9 @@ public class ManagePageTest extends TestBase {
 
     }
 
-    //    @Test(description = "Verify that user is able to add additional sibbling pages to the parent page successfully")
+    @Test(description = "Verify that user is able to add additional sibbling pages to the parent page successfully")
     public void DA_MP_TC018() {
-        User user = new User();
+
         String newPageNameParent = Utility.randomString(5);
         String newPageNameChild1 = Utility.randomString(5);
         String newPageNameChild2 = Utility.randomString(5);
@@ -439,7 +440,7 @@ public class ManagePageTest extends TestBase {
 
         Logger.info("DA_MP_TC18 - Verify that user is able to add additional sibbling pages to the parent page successfully");
         Logger.info("Step 2. Log in specific repository with valid account");
-        loginPage.login(Constant.REPOSITORY, user);
+        loginPage.login(repo, user);
 
         Logger.info("Step 3. Go to Global Setting -> Add page");
         homePage.moveToGlobalSetting();
@@ -506,16 +507,16 @@ public class ManagePageTest extends TestBase {
         popupAlert.clickOKAlert();
     }
 
-    //    @Test(description = "Verify that user is able to add additional sibbling page levels to the parent page successfully.")
+    @Test(description = "Verify that user is able to add additional sibbling page levels to the parent page successfully.")
     public void DA_MP_TC019() {
-        User user = new User();
+
         String newPageNameParent = "Overview";
         String newPageNameChild = Utility.randomString(5);
         Boolean isPageChildIsAdded;
 
         Logger.info("DA_MP_TC19 - Verify that user is able to add additional sibbling page levels to the parent page successfully.");
         Logger.info("Step 2. Log in specific repository with valid account");
-        loginPage.login(Constant.REPOSITORY, user);
+        loginPage.login(repo, user);
 
         Logger.info("Step 3. Go to Global Setting -> Add page");
         homePage.moveToGlobalSetting();
@@ -536,10 +537,10 @@ public class ManagePageTest extends TestBase {
 
     }
 
-//    @Test(description = "Verify that user is able to delete sibbling page as long as that page has not children page under it")
+    @Test(description = "Verify that user is able to delete sibbling page as long as that page has not children page under it")
     //Need to fix
     public void DA_MP_TC020() {
-        User user = new User();
+
         String newPageNameParent = "Overview";
         String newPageNameChild1 = Utility.randomString(5);
         String newPageNameChild2 = Utility.randomString(5);
@@ -548,7 +549,7 @@ public class ManagePageTest extends TestBase {
 
         Logger.info("DA_MP_TC20 - Verify that user is able to delete sibbling page as long as that page has not children page under it");
         Logger.info("Step 2. Log in specific repository with valid account");
-        loginPage.login(Constant.REPOSITORY, user);
+        loginPage.login(repo, user);
 
         Logger.info("Step 3. Go to Global Setting -> Add page");
         homePage.moveToGlobalSetting();
@@ -567,7 +568,7 @@ public class ManagePageTest extends TestBase {
         Logger.info("Step 6. Enter page name fill");
         pagePopup.enterPageName(newPageNameChild2);
         pagePopup.clickCmbParentPage();
-        pagePopup.selectParentPage("    "+newPageNameChild1);
+        pagePopup.selectParentPage("    " + newPageNameChild1);
         pagePopup.clickOK();
 
         Logger.info("Step 7. Go to the first created page");
@@ -602,8 +603,8 @@ public class ManagePageTest extends TestBase {
 
         Logger.info("VP: " + newPageNameChild2 + " is deleted successfully");
         homePage.moveMouseToPage(newPageNameParent);
-        isPageDisplay = homePage.verifyChildPageIsDisplayed(newPageNameParent,newPageNameChild2);
-        assertFalse(isPageDisplay,newPageNameChild2+" is displayed as not expected");
+        isPageDisplay = homePage.verifyChildPageIsDisplayed(newPageNameParent, newPageNameChild2);
+        assertFalse(isPageDisplay, newPageNameChild2 + " is displayed as not expected");
 
         Logger.info("Post-Condition");
 

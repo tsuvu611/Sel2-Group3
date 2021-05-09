@@ -1,7 +1,7 @@
 package enums;
 
 public enum Repository {
-    SAMPLE("TestRepository"), TEST("TestRepository");
+    SAMPLE("SampleRepository"), TEST("TestRepository");
 
     private final String repoName;
 
