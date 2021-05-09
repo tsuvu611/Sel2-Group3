@@ -1,6 +1,5 @@
 package common;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Formatter;
+
 public class Logger {
     public static java.util.logging.Logger logger;
 

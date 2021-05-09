@@ -3,20 +3,22 @@ package data;
 import common.Constant;
 
 public class Repository {
-    private String repository;
+    private String repoName;
 
     public Repository() {
-
-        this.repository = Constant.REPOSITORY;
+        this.repoName = enums.Repository.SAMPLE.getName();
     }
 
-    public String getRepository() {
-        return repository;
+    public String getRepoName() {
+        return repoName;
     }
 
-    public Repository(String repository){
-        this.repository = repository;
+    public Repository(String repoName){
+        this.repoName = repoName;
+    }
 
+    public Repository(enums.Repository repository) {
+        this.repoName = repository.getName();
     }
 }
 

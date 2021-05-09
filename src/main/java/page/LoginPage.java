@@ -14,15 +14,15 @@ public class LoginPage extends GeneralPage {
     private final Button btnLogin = new Button("//div[@class='btn-login']");
 
     public HomePage login(Repository repository, User user) {
-        cbbRepository.selectByText(repository.getRepository());
+        cbbRepository.selectByText(repository.getRepoName());
         txtUserName.enter(user.getUsername());
         txtPassword.enter(user.getPassword());
         btnLogin.click();
         return new HomePage();
     }
 
-    public LoginPage loginWithInvalidAccount(Repository repository, User user){
-        cbbRepository.selectByText(repository.getRepository());
+    public LoginPage loginInvalid(Repository repository, User user){
+        cbbRepository.selectByText(repository.getRepoName());
         txtUserName.enter(user.getUsername());
         txtPassword.enter(user.getPassword());
         btnLogin.click();
