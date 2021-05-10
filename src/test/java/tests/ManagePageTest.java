@@ -4,6 +4,7 @@ import common.Constant;
 import common.Utility;
 import data.Repository;
 import data.User;
+import enums.CheckBoxState;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import page.HomePage;
@@ -460,7 +461,7 @@ public class ManagePageTest extends TestBase {
         pagePopup.enterPageName(newPageNameChild1);
 
         Logger.info("Step 8. Click on  Parent Page dropdown list");
-        pagePopup.clickCmbParentPage();
+        pagePopup.clickParentPage();
 
         Logger.info("Step 9. Select a parent page");
         pagePopup.selectParentPage(newPageNameParent);
@@ -542,7 +543,6 @@ public class ManagePageTest extends TestBase {
 
     //    @Test(description = "Verify that user is able to delete sibbling page as long as that page has not children page under it")
     public void DA_MP_TC020() {
-
         String newPageNameParent = "Overview";
         String newPageNameChild1 = Utility.randomString(5);
         String newPageNameChild2 = Utility.randomString(5);
