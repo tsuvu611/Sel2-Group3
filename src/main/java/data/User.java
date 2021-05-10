@@ -2,10 +2,8 @@ package data;
 
 
 import common.Constant;
-import common.Utility;
 
 public class User {
-
     private String username;
     private String password;
 
@@ -14,11 +12,6 @@ public class User {
         this.password = Constant.PASSWORD;
     }
 
-    public User(String username,String password){
-        this.username = username;
-        this.password= password;
-    }
-        
     public String getUsername() {
         return username;
     }
@@ -27,10 +20,16 @@ public class User {
         return password;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-    public User getRandomUser(){
-        this.username = Utility.randomString(3);
-        this.password = Utility.randomString(3);
-        return this;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 }
