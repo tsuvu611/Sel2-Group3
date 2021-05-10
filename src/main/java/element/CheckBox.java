@@ -1,5 +1,6 @@
 package element;
 
+import enums.CheckBoxState;
 import org.openqa.selenium.By;
 
 public class CheckBox extends BaseElement{
@@ -22,10 +23,12 @@ public class CheckBox extends BaseElement{
         super(xpath);
     }
 
-    public void checkTheCheckBox(){
-        if(!getElement().isSelected()) getElement().click();
-    }
-    public void uncheckTheCheckBox(){
-        if(getElement().isSelected()) getElement().click();
+    public void setCheckBoxState(CheckBoxState checkBoxState){
+        if (checkBoxState.getState().equals("on")){
+            if(!getElement().isSelected()) getElement().click();
+        }
+        else if (checkBoxState.getState().equals("off")){
+            if(getElement().isSelected()) getElement().click();
+        }
     }
 }

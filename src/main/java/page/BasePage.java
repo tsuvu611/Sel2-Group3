@@ -5,13 +5,10 @@ import common.Logger;
 import driver.DriverManager;
 import element.BaseElement;
 import element.Element;
-import element.Label;
 import enums.TimeOut;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.concurrent.TimeUnit;
 
 public abstract class BasePage {
     /**
@@ -24,21 +21,21 @@ public abstract class BasePage {
 
     protected static final common.Logger Logger = new Logger(BaseElement.class.getName());
     private final Element lblUsername = new Element("//a[@href='#Welcome']");
+
     private final Element elmAcountInfor(String itemName) {
         return new Element(String.format("//a[text()='%s']", itemName));
     }
 
-    public LoginPage logout(){
+    public LoginPage logout() {
         lblUsername.waitForDisplayed();
         try {
             lblUsername.moveMouse();
             elmAcountInfor("Logout").click();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             lblUsername.moveMouse();
             elmAcountInfor("Logout").click();
         }
-        return  new LoginPage();
+        return new LoginPage();
     }
 
 
@@ -48,12 +45,15 @@ public abstract class BasePage {
         return new LoginPage();
     }
 
-    public String getPopupText(){
+    public String getPopupText() {
         new WebDriverWait(DriverManager.getDriver(), TimeOut.TIMEOUT.getTimeout()).until(ExpectedConditions.alertIsPresent());
         Alert alert = DriverManager.getDriver().switchTo().alert();
-        return   alert.getText();
+        return alert.getText();
     }
 
+    public String getTitle(){
+        return DriverManager.getDriver().getTitle();
+    }
 
 
 }
