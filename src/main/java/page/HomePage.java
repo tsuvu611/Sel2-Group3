@@ -12,28 +12,21 @@ public class HomePage extends BasePage{
     private final Label lblTabName = new Label("//a[@class='active']");
     private final Element elmGlobalSetting = new Element("//li[@class='mn-setting']");
 
-    private final Element elmBesideRight(String pageName) {
-        return new Element(String.format("//a[text()='%s']/../following-sibling::li[1]/a", pageName));
+    private final Label elmBesideRight(String pageName) {
+        return new Label(String.format("//a[text()='%s']/../following-sibling::li[1]/a", pageName));
     }
 
-    private final Element elmPageName(String pageName) {
-        return new Element(String.format("//a[contains(text(),'%s')]", pageName));
+    private final Label elmPageName(String pageName) {
+        return new Label(String.format("//a[contains(text(),'%s')]", pageName));
     }
 
-    private final Element elmItemSetting(String itemName) {
-        return new Element(String.format("//a[text()='%s']", itemName));
+    private final Label elmItemSetting(String itemName) {
+        return new Label(String.format("//a[text()='%s']", itemName));
     }
 
-    private final Element elmChildPageName(String parentPageName, String childPageName) {
+    private final Label elmChildPageName(String parentPageName, String childPageName) {
         String tmp = String.format("//a[contains(text(),'%s')]/following-sibling::ul", parentPageName);
-        return new Element(String.format(tmp + "//a[contains(text(),'%s')]", childPageName));
-    }
-
-    private final Element elmChild2PageName(String parentPageName, String childPageName1,String childPageName2) {
-        String tmp = String.format("//a[contains(text(),'%s')]/following-sibling::ul", parentPageName);
-        String tmp2 = String.format(tmp+"//a[contains(text(),'%s')]", childPageName1);
-
-        return new Element(String.format(tmp2 + "//a[contains(text(),'%s')]", childPageName2));
+        return new Label(String.format(tmp + "//a[contains(text(),'%s')]", childPageName));
     }
     private final Button btnLogout = new Button("//a[@href='logout.do']");
 
@@ -86,18 +79,33 @@ public class HomePage extends BasePage{
         return new PagePopup();
     }
 
-    public boolean verifyAddNewPageIsDisplayed() {
+    public boolean isAddNewPageDisplayed() {
         return elmItemSetting("Add Page").isDisplayed();
     }
 
-    public boolean verifyNewPageDisplaysBesideOverview(String pageName) {
+    public boolean isNewPageDisplayedBesideOverview(String pageName) {
         elmPageName(pageName).waitForDisplayed();
         return pageName.equals(elmBesideRight("Overview").getText());
     }
 
-    public boolean verifyPageIsPositioned(String pageName1, String pageName2) {
+    public boolean isPagePositioned(String pageName1, String pageName2) {
         elmPageName(pageName2).waitForDisplayed();
         return elmBesideRight(pageName1).getText().equals(pageName2);
+    }
+
+    public boolean isPageNavigated(String pageName){
+        return this.getTitle().contains(pageName);
+    }
+
+    public boolean isPageFollowOverview(String pageName){
+        try {
+            if (!elmBesideRight("Overview").isDisplayed()) {
+                elmBesideRight("Overview").waitForDisplayed();
+            }
+            return elmBesideRight("Overview").isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public HomePage clickPageBesideOverview() {
@@ -106,23 +114,37 @@ public class HomePage extends BasePage{
     }
 
     public HomePage moveMouseToPage(String pageName) {
-        elmPageName(pageName).moveMouse();
-        return this;
-    }
-
-    public HomePage moveMouseToChildPage(String pageName) {
-        elmPageName(pageName).moveMouse();
-        return this;
-    }
-
-    public boolean verifyChildPageIsDisplayed(String parentPageName, String childPageName) {
-        if (!elmChildPageName(parentPageName, childPageName).isDisplayed()) {
-            elmPageName(parentPageName).moveMouse();
+        try {
+            elmPageName(pageName).moveMouse();
         }
-        return elmChildPageName(parentPageName, childPageName).isDisplayed();
+        catch (Exception e){
+            elmPageName(pageName).moveMouse();
+        }
+        return this;
     }
 
-    public boolean verifyPageIsVisible(String pageName) {
+    public HomePage moveMouseToChildPage(String parentPageName, String childPageName) {
+        try {
+            elmPageName(childPageName).moveMouse();
+        } catch (Exception e) {
+            elmPageName(parentPageName).moveMouse();
+            elmChildPageName(parentPageName, childPageName).moveMouse();
+        }
+        return this;
+    }
+
+    public boolean isChildPageDisplayed(String parentPageName, String childPageName) {
+        try {
+            if (!elmChildPageName(parentPageName, childPageName).isDisplayed()) {
+                elmPageName(parentPageName).moveMouse();
+            }
+            return elmChildPageName(parentPageName, childPageName).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isPageDisplayed(String pageName) {
         try {
             elmPageName(pageName).waitForDisplayed();
             return elmPageName(pageName).isDisplayed();
@@ -131,7 +153,7 @@ public class HomePage extends BasePage{
         }
     }
 
-    public boolean verifyDeleteDisplay() {
+    public boolean isDeleteButtonDisplay() {
         try {
             return elmItemSetting("Delete").isDisplayed();
         } catch (Exception e) {

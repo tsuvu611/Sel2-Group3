@@ -36,7 +36,7 @@ public class PopupAlert {
         return alert.getText();
     }
 
-    public boolean verifyAlertMessage(String mess){
+    public boolean isAlertMessageCorrect(String mess){
         String actual = getPopupMessage().replaceAll("\n","");
         return actual.equals(mess);
     }
