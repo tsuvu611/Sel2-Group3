@@ -42,7 +42,7 @@ public class ManagePageTest extends TestBase {
 
     }
 
-    //    @Test(description = "Verify that user is able to add additional pages besides \"Overview\" page successfully")
+        @Test(description = "Verify that user is able to add additional pages besides \"Overview\" page successfully")
     public void DA_MP_TC012() {
 
         String newPageName = Utility.randomString(5);
@@ -73,7 +73,7 @@ public class ManagePageTest extends TestBase {
         popupAlert.clickOKAlert();
     }
 
-    //    @Test(description = "Verify that the newly added main parent page is positioned at the location specified as set with \"Displayed After\" field of \"New Page\" form on the main page bar/\"Parent Page\" dropped down menu")
+        @Test(description = "Verify that the newly added main parent page is positioned at the location specified as set with \"Displayed After\" field of \"New Page\" form on the main page bar/\"Parent Page\" dropped down menu")
     public void DA_MP_TC013() {
 
         String newPageName1 = Utility.randomString(5);
@@ -125,7 +125,7 @@ public class ManagePageTest extends TestBase {
         popupAlert.clickOKAlert();
     }
 
-    //    @Test(description = "Verify that \"Public\" pages can be visible and accessed by all users of working repository")
+        @Test(description = "Verify that \"Public\" pages can be visible and accessed by all users of working repository")
     public void DA_MP_TC014() {
 
         User user2 = new User(Constant.USERNAME2, Constant.PASSWORD);
@@ -169,7 +169,7 @@ public class ManagePageTest extends TestBase {
         popupAlert.clickOKAlert();
     }
 
-    //    @Test(description = "Verify that non \"Public\" pages can only be accessed and visible to their creators with condition that all parent pages above it are \"Public\"")
+        @Test(description = "Verify that non \"Public\" pages can only be accessed and visible to their creators with condition that all parent pages above it are \"Public\"")
     public void DA_MP_TC015() {
 
         User user2 = new User(Constant.USERNAME2, Constant.PASSWORD);
@@ -236,7 +236,7 @@ public class ManagePageTest extends TestBase {
         popupAlert.clickOKAlert();
     }
 
-    //    @Test(description = "Verify that user is able to edit the \"Public\" setting of any page successfully")
+        @Test(description = "Verify that user is able to edit the \"Public\" setting of any page successfully")
     public void DA_MP_TC016() {
         User user2 = new User(Constant.USERNAME2, Constant.PASSWORD);
         String newPageName1 = Utility.randomString(5);
@@ -332,7 +332,7 @@ public class ManagePageTest extends TestBase {
         popupAlert.clickOKAlert();
     }
 
-//    @Test(description = "Verify that user can remove any main parent page except \"Overview\" page successfully and the order of pages stays persistent as long as there is not children ")
+    @Test(description = "Verify that user can remove any main parent page except \"Overview\" page successfully and the order of pages stays persistent as long as there is not children ")
     public void DA_MP_TC017() {
 
         String newPageNameParent = Utility.randomString(5);
@@ -431,7 +431,7 @@ public class ManagePageTest extends TestBase {
 
     }
 
-    //    @Test(description = "Verify that user is able to add additional sibbling pages to the parent page successfully")
+        @Test(description = "Verify that user is able to add additional sibbling pages to the parent page successfully")
     public void DA_MP_TC018() {
 
         String newPageNameParent = Utility.randomString(5);
@@ -508,7 +508,7 @@ public class ManagePageTest extends TestBase {
         popupAlert.clickOKAlert();
     }
 
-    //    @Test(description = "Verify that user is able to add additional sibbling page levels to the parent page successfully.")
+        @Test(description = "Verify that user is able to add additional sibbling page levels to the parent page successfully.")
     public void DA_MP_TC019() {
         User user = new User();
         String newPageNameParent = "Overview";
@@ -541,7 +541,7 @@ public class ManagePageTest extends TestBase {
         popupAlert.clickOKAlert();
     }
 
-    //    @Test(description = "Verify that user is able to delete sibbling page as long as that page has not children page under it")
+        @Test(description = "Verify that user is able to delete sibbling page as long as that page has not children page under it")
     public void DA_MP_TC020() {
         String newPageNameParent = "Overview";
         String newPageNameChild1 = Utility.randomString(5);
