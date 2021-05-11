@@ -6,10 +6,13 @@ import org.openqa.selenium.WebDriver;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 public class DriverManager {
     private static final Logger Logger = new Logger(DriverManager.class.getName());
-    private static Map<String, WebDriver> map = new HashMap<String, WebDriver>();
+    private static Map<String, WebDriver> map = new ConcurrentHashMap<>() {
+    };
 
     /**
      * @author tuan.vu

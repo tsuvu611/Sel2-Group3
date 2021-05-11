@@ -19,4 +19,5 @@ public class Logger {
     public void warning(String message){
         logger.warning(message);
     }
+
 }

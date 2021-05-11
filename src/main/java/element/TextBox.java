@@ -27,4 +27,9 @@ public class TextBox extends BaseElement {
         getElement().sendKeys(text);
     }
 
+    public void clear(){
+        Logger.info(String.format("Clearing on text box located at %s",getLocator()));
+        getElement().clear();
+    }
+
 }

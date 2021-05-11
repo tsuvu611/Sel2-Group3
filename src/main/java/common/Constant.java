@@ -9,6 +9,8 @@ public class Constant {
 
 	//Account
 	public static final String USERNAME = "administrator";
+	public static final String USERNAME2 = "John";
 	public static final String PASSWORD = "";
-	
+
+
 }

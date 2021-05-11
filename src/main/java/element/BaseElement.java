@@ -1,10 +1,12 @@
 package element;
 
 import common.Logger;
+import driver.Driver;
 import driver.DriverManager;
 import enums.TimeOut;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -94,13 +96,36 @@ public abstract class BaseElement {
         waitForDisplayed(TimeOut.TIMEOUT);
     }
 
+    public String getText(){
+        return  this.waitForPresent(TimeOut.TIMEOUT).getText();
+    }
+
+
+    public boolean isDisplayed(){
+        return this.waitForPresent(TimeOut.TIMEOUT) .isDisplayed();
+    }
+
     public String getXpath() {
         return _xpath;
     }
 
     public void click() {
         Logger.info(String.format("Clicking on element located at %s",getLocator()));
-        getElement().click();
+        try {
+            this.waitForDisplayed();
+            getElement().click();
+        }
+        catch (StaleElementReferenceException e){
+            this.waitForDisplayed();
+            getElement().click();
+        }
+    }
+
+    public void moveMouse(){
+        Logger.info(String.format("Moving on element located at %s",getLocator()));
+        this.waitForDisplayed();
+        Actions actions = new Actions(DriverManager.getDriver());
+        actions.moveToElement(getElement()).perform();
     }
 
 
