@@ -1,13 +1,10 @@
 package page;
 
-import driver.DriverManager;
 import element.Button;
 import element.Element;
 import element.Label;
-import enums.TimeOut;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class HomePage extends BasePage{
+public class HomePage extends BasePage {
     private final Label lblUsername = new Label("//a[@href='#Welcome']");
     private final Label lblTabName = new Label("//a[@class='active']");
     private final Element elmGlobalSetting = new Element("//li[@class='mn-setting']");
@@ -28,6 +25,7 @@ public class HomePage extends BasePage{
         String tmp = String.format("//a[contains(text(),'%s')]/following-sibling::ul", parentPageName);
         return new Label(String.format(tmp + "//a[contains(text(),'%s')]", childPageName));
     }
+
     private final Button btnLogout = new Button("//a[@href='logout.do']");
 
     public String getTabName() {
@@ -93,11 +91,11 @@ public class HomePage extends BasePage{
         return elmBesideRight(pageName1).getText().equals(pageName2);
     }
 
-    public boolean isPageNavigated(String pageName){
+    public boolean isPageNavigated(String pageName) {
         return this.getTitle().contains(pageName);
     }
 
-    public boolean isPageFollowOverview(String pageName){
+    public boolean isPageFollowOverview(String pageName) {
         try {
             if (!elmBesideRight("Overview").isDisplayed()) {
                 elmBesideRight("Overview").waitForDisplayed();
@@ -116,8 +114,7 @@ public class HomePage extends BasePage{
     public HomePage moveMouseToPage(String pageName) {
         try {
             elmPageName(pageName).moveMouse();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             elmPageName(pageName).moveMouse();
         }
         return this;

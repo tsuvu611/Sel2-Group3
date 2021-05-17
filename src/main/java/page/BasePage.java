@@ -32,6 +32,7 @@ public abstract class BasePage {
     }
 
     private final Element eleRepository = new Element("//a[@href='#Repository']");
+    private final Element eleAdminister = new Element("//a[@href='#Administer']");
 
     public HomePage changeRepo(String newRepoName) {
         eleRepository.moveMouse();
@@ -68,5 +69,10 @@ public abstract class BasePage {
         return DriverManager.getDriver().getTitle();
     }
 
+    public HomePage moveToAdminister() {
+        eleAdminister.waitForDisplayed();
+        eleAdminister.moveMouse();
+        return new HomePage();
+    }
 
 }

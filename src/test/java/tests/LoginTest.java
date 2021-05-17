@@ -13,8 +13,6 @@ import static org.testng.Assert.assertEquals;
 public class LoginTest extends TestBase {
     private LoginPage loginPage = new LoginPage();
     private HomePage homePage = new HomePage();
-    private PopupAlert popupAlert = new PopupAlert();
-    private User user;
 
     @Test
     public void DA_LOGIN_TC001() {
@@ -45,10 +43,10 @@ public class LoginTest extends TestBase {
         Logger.info("1. Navigate to Dashboard login page");
         Logger.info("2. Enter valid username and password");
         Logger.info("3. Click on \"Login\" button");
-        popupAlert = loginPage.loginInvalid(repository, user);
+        loginPage = loginPage.loginInvalid(repository, user);
 
         Logger.info("4. Verify that Dashboard Error message \"Username or password is invalid\" appears");
-        actualMsg = popupAlert.getPopupMessage();
+        actualMsg = loginPage.getPopupMessage();
         assertEquals(actualMsg, expectedMsg, "Title is not displayed as expected");
     }
 
@@ -64,10 +62,10 @@ public class LoginTest extends TestBase {
         Logger.info("1. Navigate to Dashboard login page");
         Logger.info("2. Enter valid username and invalid password");
         Logger.info("3. Click on \"Login\" button");
-        popupAlert = loginPage.loginInvalid(repository, user);
+        loginPage = loginPage.loginInvalid(repository, user);
 
         Logger.info("4. Verify that Dashboard Error message \"Username or password is invalid\" appears");
-        actualMsg = popupAlert.getPopupMessage();
+        actualMsg = loginPage.getPopupMessage();
         assertEquals(actualMsg, expectedMsg, "Title is not displayed as expected");
     }
 
@@ -122,13 +120,8 @@ public class LoginTest extends TestBase {
     public void DA_LOGIN_TC006() {
         Logger.info("DA_LOGIN_TC006 - Verify that \"Password\" input is case sensitive");
         Repository repository = new Repository();
-        Repository newRepository = DataHelper.getTestRepo();
-        User user = new User();
-        user.setUsername("test");
-        user.setPassword("TEST");
-        User invalidUser = new User();
-        invalidUser.setUsername("test");
-        invalidUser.setPassword("test");
+        User user = new User("test","TEST");
+        User invalidUser = new User("test","test");
         String expectedMsg_1 = "Execution Dashboard";
         String expectedMsg_2 = "Username or password is invalid";
         String actualMsg;
@@ -145,10 +138,10 @@ public class LoginTest extends TestBase {
         loginPage = homePage.logout();
 
         Logger.info("5. Login with the above account but enter lowercase password");
-        popupAlert = loginPage.loginInvalid(repository, invalidUser);
+        loginPage = loginPage.loginInvalid(repository, invalidUser);
 
         Logger.info("6. Dashboard Error message \"Username or password is invalid\" appears");
-        actualMsg = popupAlert.getPopupMessage();
+        actualMsg = loginPage.getPopupMessage();
         assertEquals(actualMsg, expectedMsg_2, "Title is not displayed as expected");
     }
 
@@ -156,13 +149,8 @@ public class LoginTest extends TestBase {
     public void DA_LOGIN_TC007() {
         Logger.info("DA_LOGIN_TC007 - Verify that \"Username\" is not case sensitive");
         Repository repository = new Repository();
-        Repository newRepository = DataHelper.getTestRepo();
-        User user = new User();
-        user.setUsername("UPPERCASEUSERNAME");
-        user.setPassword("uppercaseusername");
-        User otherUser = new User();
-        otherUser.setUsername("uppercaseusername");
-        otherUser.setPassword("uppercaseusername");
+        User user = new User("UPPERCASEUSERNAME","uppercaseusername");
+        User otherUser = new User("uppercaseusername","uppercaseusername");
         String expectedMsg = "Execution Dashboard";
         String actualMsg;
 
@@ -189,10 +177,7 @@ public class LoginTest extends TestBase {
     public void DA_LOGIN_TC008() {
         Logger.info("DA_LOGIN_TC008 - Verify that password with special characters is working correctly");
         Repository repository = new Repository();
-        Repository newRepository = DataHelper.getTestRepo();
-        User user = new User();
-        user.setUsername("specialCharsPassword");
-        user.setPassword("`!@^&*(+_=[{;'\",./<?");
+        User user = new User("specialCharsPassword","`!@^&*(+_=[{;'\",./<?");
         String expectedMsg = "Execution Dashboard";
         String actualMsg;
 
@@ -209,10 +194,7 @@ public class LoginTest extends TestBase {
     public void DA_LOGIN_TC009() {
         Logger.info("DA_LOGIN_TC009 - Verify that username with special characters is working correctly");
         Repository repository = new Repository();
-        Repository newRepository = DataHelper.getTestRepo();
-        User user = new User();
-        user.setUsername("`~!@$^&()',.");
-        user.setPassword("specialCharsUser");
+        User user = new User("`~!@$^&()',.","specialCharsUser");
         String expectedMsg = "Execution Dashboard";
         String actualMsg;
 
@@ -229,19 +211,16 @@ public class LoginTest extends TestBase {
     public void DA_LOGIN_TC010() {
         Logger.info("DA_LOGIN_TC010 - Verify that the page works correctly for the case when no input entered to Password and Username field");
         Repository repository = new Repository();
-        Repository newRepository = DataHelper.getTestRepo();
-        User user = new User();
-        user.setUsername("");
-        user.setPassword("");
+        User user = new User("","");
         String expectedMsg = "Please enter username";
         String actualMsg;
 
         Logger.info("1. Navigate to Dashboard login page");
         Logger.info("2. Click Login button without entering data into Username and Password field");
-        popupAlert = loginPage.loginInvalid(repository, user);
+        loginPage = loginPage.loginInvalid(repository, user);
 
         Logger.info("3. Message \"Please enter username\" is displayed");
-        actualMsg = popupAlert.getPopupMessage();
+        actualMsg = loginPage.getPopupMessage();
         assertEquals(actualMsg, expectedMsg, "Title is not displayed as expected");
     }
 }
