@@ -21,11 +21,13 @@ public class LoginPage extends GeneralPage {
         return new HomePage();
     }
 
-    public LoginPage loginInvalid(Repository repository, User user){
+    public PopupAlert loginInvalid(Repository repository, User user){
         cbbRepository.selectByText(repository.getRepoName());
         txtUserName.enter(user.getUsername());
         txtPassword.enter(user.getPassword());
         btnLogin.click();
-        return new LoginPage();
+        return new PopupAlert();
     }
+
+
 }

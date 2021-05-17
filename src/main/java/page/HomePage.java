@@ -172,10 +172,4 @@ public class HomePage extends BasePage{
     }
 
 
-    public LoginPage logout() {
-        lblUsername.click();
-        btnLogout.click();
-        new WebDriverWait(DriverManager.getDriver(), TimeOut.TIMEOUT.getTimeout());
-        return new LoginPage();
-    }
 }
