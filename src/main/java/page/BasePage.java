@@ -4,6 +4,7 @@ import common.Constant;
 import common.Logger;
 import driver.DriverManager;
 import element.BaseElement;
+import element.ComboBox;
 import element.Element;
 import enums.TimeOut;
 import org.openqa.selenium.Alert;
@@ -26,6 +27,24 @@ public abstract class BasePage {
         return new Element(String.format("//a[text()='%s']", itemName));
     }
 
+    private final Element elmRepoName(String repoName) {
+        return new Element(String.format("//a[@href='#' and contains(text(),'%s')]", repoName));
+    }
+
+    private final Element eleRepository = new Element("//a[@href='#Repository']");
+    private final Element eleAdminister = new Element("//a[@href='#Administer']");
+
+    public HomePage changeRepo(String newRepoName) {
+        eleRepository.moveMouse();
+        eleRepository.waitForDisplayed();
+        elmRepoName(newRepoName).click();
+        return new HomePage();
+    }
+
+    public String getRepoName(String newRepoName){
+        return this.elmRepoName(newRepoName).getText();
+    }
+
     public LoginPage logout() {
         lblUsername.waitForDisplayed();
         try {
@@ -45,15 +64,15 @@ public abstract class BasePage {
         return new LoginPage();
     }
 
-    public String getPopupText() {
-        new WebDriverWait(DriverManager.getDriver(), TimeOut.TIMEOUT.getTimeout()).until(ExpectedConditions.alertIsPresent());
-        Alert alert = DriverManager.getDriver().switchTo().alert();
-        return alert.getText();
-    }
 
     public String getTitle(){
         return DriverManager.getDriver().getTitle();
     }
 
+    public HomePage moveToAdminister() {
+        eleAdminister.waitForDisplayed();
+        eleAdminister.moveMouse();
+        return new HomePage();
+    }
 
 }
