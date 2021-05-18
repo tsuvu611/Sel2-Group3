@@ -20,7 +20,7 @@ public class TestBase {
         loginPage.open();
     }
 
-    @AfterMethod
+//    @AfterMethod
     public void afterMethod() {
         System.out.println("Run after Method");
         DriverManager.getDriver().quit();

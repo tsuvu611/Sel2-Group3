@@ -3,6 +3,7 @@ package driver;
 
 import common.Logger;
 import enums.DriverType;
+import enums.TimeOut;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -10,6 +11,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.URL;
 
@@ -73,6 +76,19 @@ public class Driver extends BaseDriver {
         Logger.info(String.format("Scroll the driver %s till end", DriverManager.getThreadId()));
         String js = String.format("window.scrollTo(0, document.body.scrollHeight)");
         jsExecutor().executeScript(js);
+    }
+
+    public static Alert getAlert(){
+        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), TimeOut.SHORT_TIMEOUT.getTimeout() /*timeout in seconds*/);
+        org.openqa.selenium.Alert alert;
+        try {
+            wait.until(ExpectedConditions.alertIsPresent());
+            alert = DriverManager.getDriver().switchTo().alert();
+        } catch (Exception e) {
+            wait.until(ExpectedConditions.alertIsPresent());
+            alert = DriverManager.getDriver().switchTo().alert();
+        }
+        return alert;
     }
 
 

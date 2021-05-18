@@ -2,6 +2,7 @@ package page;
 
 import data.Repository;
 import data.User;
+import element.Alert;
 import element.Button;
 import element.ComboBox;
 import element.TextBox;

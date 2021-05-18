@@ -3,7 +3,7 @@ package page;
 import element.*;
 import enums.CheckBoxState;
 
-public class PagePopup {
+public class PagePopup extends BasePage{
     private final TextBox txtNewPageName = new TextBox("//input[@id=\"name\"]");
     private final ComboBox cmbDisplayAfter = new ComboBox("//select[@id='afterpage']");
     private final Button btnOK = new Button("//input[@id=\"OK\"]");

@@ -62,4 +62,29 @@ public class ComboBox extends BaseElement {
         selectByText(TimeOut.SHORT_TIMEOUT.getTimeout(), text);
     }
 
+    private void selectByIndex(int timeOutInSeconds, int index) {
+        if (timeOutInSeconds <= 0) {
+            Logger.error("The time out is invalid. It must greater than 0");
+            return;
+        }
+        Stopwatch sw = Stopwatch.createStarted();
+        try {
+            Logger.info(String.format("Select the option of the control %s by text", getXpath().toString()));
+            selection(timeOutInSeconds).selectByIndex(index);
+        } catch (StaleElementReferenceException ex) {
+            if (sw.elapsed(TimeUnit.SECONDS) <= (long) timeOutInSeconds) {
+                Logger.warning(String.format("Try to select the option of the control %s by text again",
+                        getXpath()));
+                selectByIndex(timeOutInSeconds - (int) sw.elapsed(TimeUnit.SECONDS), index);
+            }
+        } catch (Exception error) {
+            Logger.error(String.format("Has error with control '%s': %s", getXpath(), error.getMessage()));
+            throw error;
+        }
+    }
+
+    public void selectByIndex(int index) {
+        selectByIndex(TimeOut.SHORT_TIMEOUT.getTimeout(), index);
+    }
+
 }

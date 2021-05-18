@@ -23,7 +23,4 @@ public class Label extends BaseElement {
         super(xpath);
     }
 
-    public String getText(){
-        return getElement().getText();
-    }
 }

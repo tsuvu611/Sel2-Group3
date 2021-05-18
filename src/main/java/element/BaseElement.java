@@ -96,10 +96,55 @@ public abstract class BaseElement {
         waitForDisplayed(TimeOut.TIMEOUT);
     }
 
+    /**
+     * @param timeOutInSeconds the time out in seconds
+     * @return the Web Element
+     * @author khoi.nguyen
+     * Wait for the List<WebElement> to be present in DOM with a specific timeout
+     */
+    protected List<WebElement> waitsForPresent(int timeOutInSeconds) {
+        Logger.info(String.format("Wait for control %s to be present in DOM with timeOut %s", getXpath().toString(),
+                timeOutInSeconds));
+        try {
+            WebDriverWait wait2 = new WebDriverWait(getDriver(), timeOutInSeconds);
+            _elements = wait2.until(ExpectedConditions.presenceOfAllElementsLocatedBy(getLocator()));
+        } catch (Exception error) {
+            Logger.error(String.format("Has error with control '%s': %s", getLocator().toString(), error.getMessage()));
+            throw error;
+        }
+        return _elements;
+    }
+
+    public List<WebElement> waitsForPresent(TimeOut timeout) {
+        return waitsForPresent(timeout.getTimeout());
+    }
+
+    protected void waitsForDisplayed(int timeout) {
+        try {
+            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), timeout);
+            _elements = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(_byLocator));
+        } catch (TimeoutException e) {
+            Logger.warning(String.format("Element does not display after %n", timeout));
+            throw e;
+        }
+    }
+
+    public void waitsForDisplayed(TimeOut timeout) {
+        waitsForDisplayed(timeout.getTimeout());
+    }
+
+    protected List<WebElement> getElements() {
+        return waitsForPresent(TimeOut.TIMEOUT);
+    }
+
+    public void waitsForDisplayed() {
+        waitsForDisplayed(TimeOut.TIMEOUT);
+    }
+
+    //-------------------------------------------------------------------------------------
     public String getText(){
         return  this.waitForPresent(TimeOut.TIMEOUT).getText();
     }
-
 
     public boolean isDisplayed(){
         return this.waitForPresent(TimeOut.TIMEOUT) .isDisplayed();

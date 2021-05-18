@@ -1,86 +1,83 @@
 package page;
 
+import driver.Driver;
 import driver.DriverManager;
-import element.Button;
-import element.Element;
-import element.Label;
 import enums.TimeOut;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class HomePage extends BasePage{
-    private final Label lblUsername = new Label("//a[@href='#Welcome']");
-    private final Label lblTabName = new Label("//a[@class='active']");
-    private final Element elmGlobalSetting = new Element("//li[@class='mn-setting']");
+public class HomePage extends BasePage {
 
-    private final Label elmBesideRight(String pageName) {
-        return new Label(String.format("//a[text()='%s']/../following-sibling::li[1]/a", pageName));
-    }
-
-    private final Label elmPageName(String pageName) {
-        return new Label(String.format("//a[contains(text(),'%s')]", pageName));
-    }
-
-    private final Label elmItemSetting(String itemName) {
-        return new Label(String.format("//a[text()='%s']", itemName));
-    }
-
-    private final Label elmChildPageName(String parentPageName, String childPageName) {
-        String tmp = String.format("//a[contains(text(),'%s')]/following-sibling::ul", parentPageName);
-        return new Label(String.format(tmp + "//a[contains(text(),'%s')]", childPageName));
-    }
-    private final Button btnLogout = new Button("//a[@href='logout.do']");
-
-    public String getTabName() {
-        return this.lblTabName.getText();
-    }
-
-    public HomePage moveToGlobalSetting() {
-        elmGlobalSetting.waitForDisplayed();
-        elmGlobalSetting.moveMouse();
+    public HomePage moveMouseToGlobalSetting() {
+        lblGlobalSetting.waitForDisplayed();
+        lblGlobalSetting.moveMouse();
         return this;
     }
 
-    public HomePage clickPage(String pageName) {
-        elmPageName(pageName).waitForDisplayed();
-        elmPageName(pageName).click();
+
+
+    public HomePage clickAdminister() {
+        lblAdminister.waitForDisplayed();
+        lblAdminister.click();
         return this;
     }
 
     public PagePopup clickAddNewPage() {
         Logger.info("Clicking Add Page Item");
         try {
-            elmItemSetting("Add Page").click();
+            elmChildItem("Add Page").waitsForPresent(TimeOut.TIMEOUT);
+            elmChildItem("Add Page").click();
         } catch (Exception e) {
-            moveToGlobalSetting();
-            elmItemSetting("Add Page").click();
+            moveMouseToGlobalSetting();
+            elmChildItem("Add Page").click();
         }
         return new PagePopup();
     }
 
-    public PopupAlert clickDeletePage() {
+    public PanelPopup clickCreatePanel() {
+        Logger.info("Clicking Create Panel Item");
+        try {
+            elmChildItem("Create Panel").click();
+        } catch (Exception e) {
+            moveMouseToGlobalSetting();
+            elmChildItem("Create Panel").click();
+        }
+        return new PanelPopup();
+    }
+
+    public HomePage clickDeletePage() {
         Logger.info("Clicking Detele Page Item");
         try {
-            elmItemSetting("Delete").click();
+            elmChildItem("Delete").click();
         } catch (Exception e) {
-            moveToGlobalSetting();
-            elmItemSetting("Delete").click();
+            moveMouseToGlobalSetting();
+            elmChildItem("Delete").click();
         }
-        return new PopupAlert();
+        return this;
     }
 
     public PagePopup clickEditPage() {
         Logger.info("Clicking Edit Page Item");
         try {
-            elmItemSetting("Edit").click();
+            elmChildItem("Edit").click();
         } catch (Exception e) {
-            moveToGlobalSetting();
-            elmItemSetting("Edit").click();
+            moveMouseToGlobalSetting();
+            elmChildItem("Edit").click();
         }
         return new PagePopup();
     }
 
+    public PanelPage clickPanels() {
+        Logger.info("Clicking Create Panel Item");
+        try {
+            elmChildItem("Panels").click();
+        } catch (Exception e) {
+            moveMouseToAdminister();
+            elmChildItem("Panels").click();
+        }
+        return new PanelPage();
+    }
+
     public boolean isAddNewPageDisplayed() {
-        return elmItemSetting("Add Page").isDisplayed();
+        return elmChildItem("Add Page").isDisplayed();
     }
 
     public boolean isNewPageDisplayedBesideOverview(String pageName) {
@@ -93,11 +90,11 @@ public class HomePage extends BasePage{
         return elmBesideRight(pageName1).getText().equals(pageName2);
     }
 
-    public boolean isPageNavigated(String pageName){
+    public boolean isPageNavigated(String pageName) {
         return this.getTitle().contains(pageName);
     }
 
-    public boolean isPageFollowOverview(String pageName){
+    public boolean isPageFollowOverview(String pageName) {
         try {
             if (!elmBesideRight("Overview").isDisplayed()) {
                 elmBesideRight("Overview").waitForDisplayed();
@@ -116,8 +113,7 @@ public class HomePage extends BasePage{
     public HomePage moveMouseToPage(String pageName) {
         try {
             elmPageName(pageName).moveMouse();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             elmPageName(pageName).moveMouse();
         }
         return this;
@@ -155,7 +151,8 @@ public class HomePage extends BasePage{
 
     public boolean isDeleteButtonDisplay() {
         try {
-            return elmItemSetting("Delete").isDisplayed();
+            elmChildItem("Delete").waitForDisplayed();
+            return elmChildItem("Delete").isDisplayed();
         } catch (Exception e) {
             return false;
         }
@@ -172,10 +169,18 @@ public class HomePage extends BasePage{
     }
 
 
-    public LoginPage logout() {
-        lblUsername.click();
-        btnLogout.click();
-        new WebDriverWait(DriverManager.getDriver(), TimeOut.TIMEOUT.getTimeout());
-        return new LoginPage();
+//    public LoginPage logout() {
+//        lblUsername.click();
+//        btnLogout.click();
+//        new WebDriverWait(DriverManager.getDriver(), TimeOut.TIMEOUT.getTimeout());
+//        return new LoginPage();
+//    }
+
+    public ChoosePanelPopup clickPanelSetting() {
+        lblPanelSetting.waitForDisplayed();
+        lblPanelSetting.click();
+        return new ChoosePanelPopup();
     }
+
+
 }
