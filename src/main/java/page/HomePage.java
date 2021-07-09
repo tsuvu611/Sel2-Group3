@@ -6,43 +6,6 @@ import enums.TimeOut;
 
 public class HomePage extends BasePage {
 
-    public HomePage moveMouseToGlobalSetting() {
-        lblGlobalSetting.waitForDisplayed();
-        lblGlobalSetting.moveMouse();
-        return this;
-    }
-
-
-
-    public HomePage clickAdminister() {
-        lblAdminister.waitForDisplayed();
-        lblAdminister.click();
-        return this;
-    }
-
-    public PagePopup clickAddNewPage() {
-        Logger.info("Clicking Add Page Item");
-        try {
-            elmChildItem("Add Page").waitsForPresent(TimeOut.TIMEOUT);
-            elmChildItem("Add Page").click();
-        } catch (Exception e) {
-            moveMouseToGlobalSetting();
-            elmChildItem("Add Page").click();
-        }
-        return new PagePopup();
-    }
-
-    public PanelPopup clickCreatePanel() {
-        Logger.info("Clicking Create Panel Item");
-        try {
-            elmChildItem("Create Panel").click();
-        } catch (Exception e) {
-            moveMouseToGlobalSetting();
-            elmChildItem("Create Panel").click();
-        }
-        return new PanelPopup();
-    }
-
     public HomePage clickDeletePage() {
         Logger.info("Clicking Detele Page Item");
         try {
@@ -63,17 +26,6 @@ public class HomePage extends BasePage {
             elmChildItem("Edit").click();
         }
         return new PagePopup();
-    }
-
-    public PanelPage clickPanels() {
-        Logger.info("Clicking Create Panel Item");
-        try {
-            elmChildItem("Panels").click();
-        } catch (Exception e) {
-            moveMouseToAdminister();
-            elmChildItem("Panels").click();
-        }
-        return new PanelPage();
     }
 
     public boolean isAddNewPageDisplayed() {

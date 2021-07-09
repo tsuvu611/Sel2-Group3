@@ -6,6 +6,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
@@ -27,10 +31,12 @@ public class ComboBox extends BaseElement {
     public ComboBox(String xpath) {
         super(xpath);
     }
+
     protected Select selection(int timeOutInSeconds) {
         waitForDisplayed();
         return new Select(_element);
     }
+
     /**
      * @param timeOutInSeconds the time out in seconds
      * @param text             the text
@@ -86,5 +92,26 @@ public class ComboBox extends BaseElement {
     public void selectByIndex(int index) {
         selectByIndex(TimeOut.SHORT_TIMEOUT.getTimeout(), index);
     }
+
+    public ArrayList<String> getListData(){
+        ArrayList<String> myList = new ArrayList<String>(Arrays.asList(this.getText().split("\n")));
+        return myList;
+    }
+
+    public boolean isCmbAlphabetOrder() {
+        this.waitForDisplayed();
+        ArrayList<String> tmp = new ArrayList<>();
+        tmp = getListData();
+        ArrayList<String> tmp2 = new ArrayList<>(tmp);
+        Collections.sort(tmp2, String.CASE_INSENSITIVE_ORDER);
+        return tmp.equals(tmp2);
+    }
+
+    public String getSelectedText() {
+        waitForDisplayed();
+        return selection((TimeOut.SHORT_TIMEOUT.getTimeout())).getFirstSelectedOption().getText();
+    }
+
+
 
 }

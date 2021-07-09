@@ -53,7 +53,7 @@ public class LoginTest extends TestBase {
 
         // 4. Verify that Dashboard Error message "Username or password is invalid" appears
         Logger.info("4. Verify that Dashboard Error message \"Username or password is invalid\" appears");
-        actualMsg = loginPage.getPopupText();
+        actualMsg = loginPage.getAlertText();
         assertEquals(actualMsg, expectedMsg, "Title is not displayed as expected");
     }
 
@@ -76,7 +76,7 @@ public class LoginTest extends TestBase {
 
         // 4. Verify that Dashboard Error message "Username or password is invalid" appears
         Logger.info("4. Verify that Dashboard Error message \"Username or password is invalid\" appears");
-        actualMsg = loginPage.getPopupText();
+        actualMsg = loginPage.getAlertText();
         assertEquals(actualMsg, expectedMsg, "Title is not displayed as expected");
     }
 

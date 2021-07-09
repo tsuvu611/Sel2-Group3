@@ -1,6 +1,7 @@
 package element;
 
 import enums.CheckBoxState;
+import enums.TimeOut;
 import org.openqa.selenium.By;
 
 public class CheckBox extends BaseElement{
@@ -31,4 +32,6 @@ public class CheckBox extends BaseElement{
             if(getElement().isSelected()) getElement().click();
         }
     }
+
+
 }

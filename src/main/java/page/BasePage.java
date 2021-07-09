@@ -4,10 +4,7 @@ import common.Constant;
 import common.Logger;
 import driver.Driver;
 import driver.DriverManager;
-import element.BaseElement;
-import element.Button;
-import element.Element;
-import element.Label;
+import element.*;
 import enums.TimeOut;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -37,6 +34,10 @@ public abstract class BasePage {
 
     protected final Label elmBesideRight(String pageName) {
         return new Label(String.format("//a[text()='%s']/../following-sibling::li[1]/a", pageName));
+    }
+
+    protected final Label elmAfter(String pageName1,String pageName2) {
+        return new Label(String.format("%s//following::%s", pageName1,pageName2.substring(2)));
     }
 
     protected final Label elmPageName(String pageName) {
@@ -77,7 +78,7 @@ public abstract class BasePage {
         return new LoginPage();
     }
 
-    public String getPopupText() {
+    public String getAlertText() {
         new WebDriverWait(DriverManager.getDriver(), TimeOut.TIMEOUT.getTimeout()).until(ExpectedConditions.alertIsPresent());
         Alert alert = DriverManager.getDriver().switchTo().alert();
         return alert.getText();
@@ -106,6 +107,53 @@ public abstract class BasePage {
         return alert.isAlertMessageCorrect(mess);
     }
 
+
+    public HomePage moveMouseToGlobalSetting() {
+        lblGlobalSetting.waitForDisplayed();
+        lblGlobalSetting.moveMouse();
+        return new HomePage();
+    }
+
+    public HomePage clickAdminister() {
+        lblAdminister.waitForDisplayed();
+        lblAdminister.click();
+        return new HomePage();
+    }
+
+    public PagePopup clickAddNewPage() {
+        Logger.info("Clicking Add Page Item");
+        try {
+            elmChildItem("Add Page").waitsForPresent(TimeOut.TIMEOUT);
+            elmChildItem("Add Page").click();
+        } catch (Exception e) {
+            moveMouseToGlobalSetting();
+            elmChildItem("Add Page").click();
+        }
+        return new PagePopup();
+    }
+
+    public PanelPopup clickCreatePanel() {
+        Logger.info("Clicking Create Panel Item");
+        try {
+            elmChildItem("Create Panel").click();
+        } catch (Exception e) {
+            moveMouseToGlobalSetting();
+            elmChildItem("Create Panel").click();
+        }
+        return new PanelPopup();
+    }
+
+    public PanelPage clickPanels() {
+        Logger.info("Clicking Create Panel Item");
+        try {
+            elmChildItem("Panels").click();
+        } catch (Exception e) {
+            clickAdminister();
+            elmChildItem("Panels").click();
+        }
+        return new PanelPage();
+    }
+
     public HomePage clickPage(String pageName) {
         elmPageName(pageName).waitForPresent(TimeOut.TIMEOUT);
         elmPageName(pageName).click();
@@ -117,6 +165,9 @@ public abstract class BasePage {
         lblAdminister.moveMouse();
         return new HomePage();
     }
+
+
+
 
 
 }

@@ -16,16 +16,16 @@ public class RadioButon extends BaseElement {
         super(xpath);
     }
 
-    public void clickRadioButtonType(RadioButtonType radioButtonType){
-        new RadioButon(radioButtonType.getRadioID()).click();
-    }
-
-    public void clickRadioButtonStyle(RadioButtonStyle radioButtonStyle){
-        new RadioButon(radioButtonStyle.getRadioID()).click();
-    }
-
-    public void clickRadioButtonStyle(RadioButtonLegends radioButtonLegends){
-        new RadioButon(radioButtonLegends.getRadioID()).click();
-    }
+//    public void clickRadioButtonType(RadioButtonType radioButtonType){
+//        new RadioButon(radioButtonType.getRadioID()).click();
+//    }
+//
+//    public void clickRadioButtonStyle(RadioButtonStyle radioButtonStyle){
+//        new RadioButon(radioButtonStyle.getRadioID()).click();
+//    }
+//
+//    public void clickRadioButtonStyle(RadioButtonLegends radioButtonLegends){
+//        new RadioButon(radioButtonLegends.getRadioID()).click();
+//    }
 
 }

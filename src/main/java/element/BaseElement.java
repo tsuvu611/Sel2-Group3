@@ -173,6 +173,13 @@ public abstract class BaseElement {
         actions.moveToElement(getElement()).perform();
     }
 
+    public boolean isEnable(){
+        return this.waitForPresent(TimeOut.TIMEOUT).isEnabled();
+    }
+
+    public boolean isSelected(){
+        return getElement().isSelected();
+    }
 
 
 
