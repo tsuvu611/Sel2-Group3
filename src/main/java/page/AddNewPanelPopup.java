@@ -6,7 +6,7 @@ import enums.*;
 
 import java.util.List;
 
-public class PanelPopup extends BasePage {
+public class AddNewPanelPopup extends BasePage {
     private final ComboBox cmbDataProfile = new ComboBox("//select[@id='cbbProfile']");
     private final ComboBox cmbChartType = new ComboBox("//select[@id='cbbChartType']");
     private final ComboBox cmbCategory = new ComboBox("//select[@id='cbbCategoryField']");
@@ -31,7 +31,7 @@ public class PanelPopup extends BasePage {
         return new RadioButon(String.format("//input[@id='%s']", id));
     }
 
-    public PanelPopup enterChartTitle(String panelName) {
+    public AddNewPanelPopup enterChartTitle(String panelName) {
         try {
             txtChartTitle.waitForDisplayed();
             txtChartTitle.enter(panelName);
@@ -42,50 +42,52 @@ public class PanelPopup extends BasePage {
         return this;
     }
 
-    public PanelPopup enterDisplayName(String panelName) {
+    public AddNewPanelPopup enterDisplayName(String panelName) {
         try {
             txtDisplayName.waitForDisplayed();
+            txtDisplayName.clear();
             txtDisplayName.enter(panelName);
         } catch (Exception e) {
             txtDisplayName.waitForDisplayed();
+            txtDisplayName.clear();
             txtDisplayName.enter(panelName);
         }
         return this;
     }
 
-    public PanelPopup selectRandomSeries() {
+    public AddNewPanelPopup selectRandomSeries() {
         String[] options = cmbSeries.getText().split("\n");
         int randomNum = Utility.randomNumber(1, options.length - 1);
         cmbSeries.selectByIndex(randomNum);
         return this;
     }
 
-    public PanelPopup selectCategorySeries() {
+    public AddNewPanelPopup selectCategorySeries() {
         String[] options = cmbCategory.getText().split("\n");
         int randomNum = Utility.randomNumber(1, options.length - 1);
         cmbCategory.selectByIndex(randomNum);
         return this;
     }
 
-    public PanelPopup selectType(RadioButtonType radioButtonType) {
+    public AddNewPanelPopup selectType(RadioButtonType radioButtonType) {
         radCommon(radioButtonType.getRadioID()).waitForDisplayed();
         radCommon(radioButtonType.getRadioID()).click();
         return this;
     }
 
-    public PanelPopup selectType(RadioButtonLegends radioButtonLegends) {
+    public AddNewPanelPopup selectType(RadioButtonLegends radioButtonLegends) {
         radCommon(radioButtonLegends.getRadioID()).waitForDisplayed();
         radCommon(radioButtonLegends.getRadioID()).click();
         return this;
     }
 
-    public PanelPopup selectType(RadioButtonStyle radioButtonStyle) {
+    public AddNewPanelPopup selectType(RadioButtonStyle radioButtonStyle) {
         radCommon(radioButtonStyle.getRadioID()).waitForDisplayed();
         radCommon(radioButtonStyle.getRadioID()).click();
         return this;
     }
 
-    public PanelPopup selectChartType(ChartType chartType) {
+    public AddNewPanelPopup selectChartType(ChartType chartType) {
         cmbChartType.waitForDisplayed();
         cmbChartType.selectByText(chartType.getValue());
         return this;
@@ -103,7 +105,7 @@ public class PanelPopup extends BasePage {
         return new PanelPage();
     }
 
-    public PanelPopup clickCmbChartType() {
+    public AddNewPanelPopup clickCmbChartType() {
         cmbChartType.waitForDisplayed();
         cmbChartType.click();
         return this;
@@ -128,6 +130,7 @@ public class PanelPopup extends BasePage {
         return cmbChartType.getListData().equals(chartTypeList);
     }
 
+
     public boolean isCmbDataProfileAlphaOrder() {
         return cmbDataProfile.isCmbAlphabetOrder();
     }
@@ -151,9 +154,49 @@ public class PanelPopup extends BasePage {
         return txtCaptionSeries.isEnable();
     }
 
+    public AddNewPanelPopup enterTxtCaptionCategory(String caption){
+        txtCaptionCategory.waitForDisplayed();
+        txtCaptionCategory.enter(caption);
+        return this;
+    }
+
+    public AddNewPanelPopup enterTxtCaptionSeries(String caption){
+        txtCaptionSeries.waitForDisplayed();
+        txtCaptionSeries.enter(caption);
+        return this;
+    }
+
+    public boolean isCorrectCaptionCategory(String caption){
+        txtCaptionCategory.waitForDisplayed();
+        return txtCaptionCategory.getText().equals(caption);
+    }
+
+    public boolean isCorrectCaptionSeries(String caption){
+        txtCaptionSeries.waitForDisplayed();
+        return txtCaptionSeries.getText().equals(caption);
+    }
+
+    public boolean isCorrectChartType(ChartType chartType){
+        cmbChartType.waitForDisplayed();
+        return cmbChartType.getSelectedText().equals(chartType.getValue());
+    }
+
     public boolean isSeriesEnable() {
         Logger.info("Is Series Enable");
         return cmbSeries.isEnable();
+    }
+
+    public boolean isCKBCategoryEnable(){
+        return ckbCategories.isEnable();
+    }
+    public boolean isCKBSeriesEnable(){
+        return ckbSeries.isEnable();
+    }
+    public boolean isCKBValueEnable(){
+        return ckbValue.isEnable();
+    }
+    public boolean isCKBPercentageEnable(){
+        return ckbValue.isEnable();
     }
 
     public boolean isCategoryAndCaptionDisableSeriesEnable() {
@@ -168,16 +211,40 @@ public class PanelPopup extends BasePage {
         return isCategoryEnable() && isCaptionCategoryEnable() && isCaptionSeriesEnable() && isSeriesEnable();
     }
 
-    public PanelPopup selectDataProfile(DataProfile dataProfile) {
+    public AddNewPanelPopup selectDataProfile(DataProfile dataProfile) {
         cmbDataProfile.waitForDisplayed();
         cmbDataProfile.selectByText(dataProfile.getValue());
         return this;
     }
 
-    public PanelPopup setStateCkbShowTitle(CheckBoxState checkBoxState) {
+    public AddNewPanelPopup setStateCkbShowTitle(CheckBoxState checkBoxState) {
         ckbShowTitle.waitForDisplayed();
         ckbShowTitle.setCheckBoxState(checkBoxState);
         return this;
+    }
+    public AddNewPanelPopup setStateCkbSeries(CheckBoxState checkBoxState) {
+        ckbSeries.waitForDisplayed();
+        ckbSeries.setCheckBoxState(checkBoxState);
+        return this;
+    }
+    public AddNewPanelPopup setStateCkbCategories(CheckBoxState checkBoxState) {
+        ckbCategories.waitForDisplayed();
+        ckbCategories.setCheckBoxState(checkBoxState);
+        return this;
+    }
+    public AddNewPanelPopup setStateCkbValue(CheckBoxState checkBoxState) {
+        ckbValue.waitForDisplayed();
+        ckbValue.setCheckBoxState(checkBoxState);
+        return this;
+    }
+    public AddNewPanelPopup setStateCkbPercentage(CheckBoxState checkBoxState) {
+        ckbPercentage.waitForDisplayed();
+        ckbPercentage.setCheckBoxState(checkBoxState);
+        return this;
+    }
+
+    public boolean isAddnewPanelPopUpDisplayed(){
+        return btnOK.isDisplayed();
     }
 
     public boolean isChartTypeAndDataProfileAndDisplayNameAndChartTitleAndShowTitleAndLegendsChanged(ChartType chartType, DataProfile dataProfile, String displayName, String chartTitle, CheckBoxState checkBoxState, RadioButtonLegends radioButtonLegends) {
@@ -195,7 +262,7 @@ public class PanelPopup extends BasePage {
 
     public boolean areAllSettingChanged(){
 
-        return true;
+        return false;
     }
 
 

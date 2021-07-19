@@ -2,9 +2,14 @@ package page;
 
 import driver.Driver;
 import driver.DriverManager;
+import element.Button;
+import element.ListElement;
 import enums.TimeOut;
 
+import javax.swing.text.EditorKit;
+
 public class HomePage extends BasePage {
+    private final Button btnEdit = new Button("(//*[contains(@title,'Edit Panel')])[1]");
 
     public HomePage clickDeletePage() {
         Logger.info("Clicking Detele Page Item");
@@ -15,6 +20,12 @@ public class HomePage extends BasePage {
             elmChildItem("Delete").click();
         }
         return this;
+    }
+
+    public AddNewPanelPopup clickEdit(){
+        btnEdit.waitForDisplayed();
+        btnEdit.click();
+        return new AddNewPanelPopup();
     }
 
     public PagePopup clickEditPage() {
@@ -133,6 +144,7 @@ public class HomePage extends BasePage {
         lblPanelSetting.click();
         return new ChoosePanelPopup();
     }
+
 
 
 }

@@ -5,6 +5,7 @@ import element.Label;
 
 public class PanelPage extends BasePage {
     private final Button btnCheckAll = new Button("//a[text()='Check All']");
+    private final Button btnUnCheckAll = new Button("//a[text()='UnCheck All']");
     private final Button btnDeleteAll = new Button("//a[@href='javascript:Dashboard.deletePanels();']");
     private final Button btnAddNew = new Button("//a[text()='Add New']");
 
@@ -22,7 +23,13 @@ public class PanelPage extends BasePage {
         return this;
     }
 
-    public PanelPopup clickAddNew() {
+    public PanelPage clickUnCheckAll() {
+        btnUnCheckAll.waitForDisplayed();
+        btnUnCheckAll.click();
+        return this;
+    }
+
+    public AddNewPanelPopup clickAddNew() {
         try {
             btnAddNew.waitForDisplayed();
             btnAddNew.click();
@@ -31,7 +38,7 @@ public class PanelPage extends BasePage {
             clickPanels();
             btnAddNew.click();
         }
-        return new PanelPopup();
+        return new AddNewPanelPopup();
     }
 
     public PanelPage clickDeleteAll() {
@@ -40,10 +47,10 @@ public class PanelPage extends BasePage {
         return this;
     }
 
-    public PanelPopup clickPanelEdit(String panelname) {
+    public AddNewPanelPopup clickPanelEdit(String panelname) {
         btnEdit(panelname).waitForDisplayed();
         btnEdit(panelname).click();
-        return new PanelPopup();
+        return new AddNewPanelPopup();
     }
 
     public boolean isPanelNameDisplayed(String panelName) {

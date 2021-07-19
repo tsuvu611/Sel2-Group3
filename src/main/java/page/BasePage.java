@@ -2,7 +2,6 @@ package page;
 
 import common.Constant;
 import common.Logger;
-import driver.Driver;
 import driver.DriverManager;
 import element.*;
 import enums.TimeOut;
@@ -132,7 +131,7 @@ public abstract class BasePage {
         return new PagePopup();
     }
 
-    public PanelPopup clickCreatePanel() {
+    public AddNewPanelPopup clickCreatePanel() {
         Logger.info("Clicking Create Panel Item");
         try {
             elmChildItem("Create Panel").click();
@@ -140,7 +139,7 @@ public abstract class BasePage {
             moveMouseToGlobalSetting();
             elmChildItem("Create Panel").click();
         }
-        return new PanelPopup();
+        return new AddNewPanelPopup();
     }
 
     public PanelPage clickPanels() {
@@ -165,6 +164,10 @@ public abstract class BasePage {
         lblAdminister.moveMouse();
         return new HomePage();
     }
+
+
+
+
 
 
 
